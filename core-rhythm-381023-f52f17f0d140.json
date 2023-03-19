@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "core-rhythm-381023",
+  "private_key_id": "f52f17f0d140e116cf5eac73a812a02c38c5ca06",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCRoVvnlHpDGz6k\n2EVxVez3yqbFCWi2MGloLyZjbffHFI+E0QBigroYrzW6bVD3gn5svpOO8kMOo3ao\nCvuO9IGNZTHx9u3lqeq98RgFGKBVrM4U8fGGmD1uHIEYmaMFi9GfCOQmX+HxXGla\nDN+58iTwaHb64NJlb3g64j/TFFuqW7FHwbZTbmUWyIdJgy5kI2NQ4AJRhavw2t9l\nlejv7/TtSpEtwmoibIn11ohkOawBmC+5D595s8a6RfpixyeCyh8cD2RiSaww4ATD\nfaLjSsLCJpibSjslb9M2vXQE5uBTbe1BlPY4eOdmbAm900BdSQHrJ1Gq+kzANzV6\nW1cmsNI7AgMBAAECggEAG65JEs6lIqZGFP1Kzc0gWsU5R9CPB7pR/syfhly7sSqW\nUQ+M/CyPBOwg0UvADRvPvgnHcG9aEak+f5h+0mBlU6P9h1mBRJs0lGAEScuxhjdv\ngImwd/3uB0UBwNRLKV23PXxqKWUmRENlfwldaTG+lbe1jeA3/bHfb4nbydpfxhSY\nL+l83sEUa6pSS7QsAHsRyLOco+8PCjt0a9hJwjGnF3J9R9VsAnm7tOF+6WkWOYb8\nH+h/FPq/GMAK+yKLuXupdm6zt3o2kjtfz0W1I6EFfX1M/U0/pot/PQ8k2TBKno/+\neyyOk2hWNAU+jp7GrU+Ix8QaKLqNVaAzZZJiZ2Xg6QKBgQDLgyroVgWpzw5JYkXb\nCFTrGQlyMBh112Qxl0BasxPFuNESVupnXbC1E6dRIR8CNddegzPGySSSINbtAP4u\nmDRxgYOLdWd+UYXJFoETbN3qZiB66z78rhs5AXuellch+FZSgKjnXbv81Io0ZhCM\nWyUhHa+UYaNuzrFFGzZh4cidFwKBgQC3MIxuV4ukwwl3LXOgaQop9z06LSWNNTeo\nNcWV6e35tZ+vKvbCA+6w2HW1gcinJx4Fk2SMxAD+O4jpGzlDo1kYhuq/VgW12OaS\nrJCepIRfjU8KYNDsD+VTJyGHqUWfBN6TT5BN55q/nI8v6ZocA339thVdYT7nT5fh\nFixgnCOSfQKBgGTpwK/+X8aI/muTCFKI+hqtioqNoMNmL6+LcYTIAYjskPdIE+l3\ngrT3buMCym59JjMeWeE7QiAXmptg/6k5HeAeuYzAhbYUVIOW3iA0voGJbJem6M/A\nwYzt2E+V+tTEYIF+fMJlL186QOGkrpX6aBnYr4SjObgrU6mRydCVdbW3AoGALljt\nHrmtjfj+exWXzHzm4mk4J3DmsExHkZpRLDWsTOJDzWi8V6fxCvMpDMwSPSAre1Oo\nO+kXKztaz0dg/JjmYMs5t0EHXtPKuk9Io6qSBy7UUZbfJOp8pcYfuJf+ElaEDZcy\ntlMjltkAbSnYIMBNbxRTYXXKGXHMxlj6z1KRuW0CgYEAjgY6eouAQZoxq6wgOMKO\nua7aXttJjE3ZuHBGk6pnQgcTq2O7dqb4f3/1aDxUa8tG4PG/Rmwd52CdU+IgOWbh\nsrw/PXko8OEHI6GKRt9rEpgv1xFp2z2/6h4gKBBzqtAPRkEY0rmx/ujp7GTdjKPP\nqVNjleeUEqMPJeHEv9eCb5M=\n-----END PRIVATE KEY-----\n",
+  "client_email": "weibo-503@core-rhythm-381023.iam.gserviceaccount.com",
+  "client_id": "117241088486020439904",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/weibo-503%40core-rhythm-381023.iam.gserviceaccount.com"
+}
