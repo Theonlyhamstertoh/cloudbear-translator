@@ -6,26 +6,36 @@ module.exports = {
     .setName("translate")
     .setDescription("Replies with translated text to the language of your choice!")
     .addStringOption((option) =>
+      option.setName("text").setRequired(true).setDescription("Text to be translated")
+    )
+    .addStringOption((option) =>
       option
         .setName("lang")
         .setAutocomplete(true)
         .setDescription("Choose your target language. Type for more language options! ")
         .setRequired(true)
-    )
-    .addStringOption((option) =>
-      option.setName("translate").setRequired(true).setDescription("Text to be translated")
     ),
   async execute(interaction) {
-    const reason = interaction.options.getString("translate") ?? "No text provided";
-    const lang = interaction.options.getString("lang") ?? "No text provided";
+    const lang = interaction.options.getString("lang") ?? null;
+    const text = interaction.options.getString("text") ?? null;
+    // const user = interaction.options.getUser("user") ?? null;
 
-    await interaction.reply(await translateText(reason, lang));
+    const targetLanguage = supportedLanguages.find((language) =>
+      language.value.toLowerCase().includes(lang.toLowerCase())
+    );
+    if (targetLanguage) {
+      return await interaction.reply({
+        content: await translateText(text, lang),
+        ephemeral: false,
+      });
+    } else {
+      await interaction.reply("Invalid target language. Please choose from the autocomplete list");
+    }
   },
 
   async autocomplete(interaction) {
     const focusedValue = interaction.options.getFocused();
     if (focusedValue.length === 0) return await interaction.respond(limit_25_languages);
-    console.log(focusedValue);
     const filtered = supportedLanguages.filter((language) => {
       languageName = language.name.toLowerCase();
       userInput = focusedValue.toLowerCase();
@@ -33,6 +43,7 @@ module.exports = {
         return language;
       }
     });
+
     await interaction.respond(filtered);
   },
 };
