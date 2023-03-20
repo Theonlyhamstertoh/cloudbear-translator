@@ -1,9 +1,9 @@
 // Require the necessary discord.js classes
 const fs = require("node:fs");
 const path = require("node:path");
+require("dotenv").config();
 
 const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
-const { token } = require("../config.json");
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -40,4 +40,4 @@ for (const file of eventsFile) {
 }
 
 // Log in to Discord with your client's token
-client.login(token);
+client.login(process.env.token);
