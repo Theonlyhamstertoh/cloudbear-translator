@@ -3,10 +3,17 @@ const fs = require("node:fs");
 const path = require("node:path");
 require("dotenv").config();
 
-const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
+// require("./deploy-command");
+const { Client, Collection, Events, GatewayIntentBits, Guild } = require("discord.js");
 
 // Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMessages,
+  ],
+});
 client.commands = new Collection();
 
 const commandsPath = path.join(__dirname, "commands");
