@@ -6,17 +6,21 @@ module.exports = {
   name: Events.MessageCreate,
   async execute(interaction) {
     // if (!interaction.()) return;
-    // try {
-    if (!interaction.author.id) return console.log("DOES NOT EXIST");
-    userData = UserDatabase.get(interaction.author.id);
-    if (userData && userData.enable) {
-      return await interaction.reply({
-        content: `${await translateText(interaction.content, userData.lang)}`,
-        ephemeral: true,
-      });
+    try {
+      if (!interaction.author.id) return console.log("DOES NOT EXIST");
+      userData = UserDatabase.get(interaction.author.id);
+      if (userData && userData.enable) {
+        console.log(interaction);
+        return await interaction.reply({
+          content: `${await translateText(interaction.content, userData.lang)}`,
+          ephemeral: true,
+        });
+      }
+    } catch (err) {
+      return await interaction.reply(
+        "There was an error with Cloudbear. type /help to get the invite link to the discord community"
+      );
     }
-
-    // } catch (err) {
     // console.err(err);
     // }
     // try {

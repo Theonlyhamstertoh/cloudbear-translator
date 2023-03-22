@@ -47,4 +47,4 @@ for (const file of eventsFile) {
 }
 
 // Log in to Discord with your client's token
-client.login(process.env.PRODUCTION_TOKEN);
+client.login(process.env.token);
