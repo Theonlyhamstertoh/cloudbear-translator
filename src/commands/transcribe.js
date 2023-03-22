@@ -27,7 +27,10 @@ module.exports = {
       const user = interaction.options.getUser("user", true) ?? null;
       const lang = interaction.options.getString("lang", true) ?? null;
       const mode = interaction.options.getBoolean("enable", true) ?? null;
-      console.log(mode, "----------------", lang, "--------------");
+
+      if (user.bot === true) {
+        return await interaction.reply("Cannot Select A Bot To Transcribe");
+      }
       const targetLanguage = supportedLanguages.find((language) =>
         language.value.toLowerCase().includes(lang.toLowerCase())
       );
