@@ -44,7 +44,6 @@ module.exports = {
         UserDatabase.set(user.id, new TranscribeManager(mode, lang));
       }
 
-      console.log(interaction.deferReply);
       return await interaction.reply({
         content: `Transcription to ${targetLanguage.name} is ${
           mode ? "enabled" : "disabled"

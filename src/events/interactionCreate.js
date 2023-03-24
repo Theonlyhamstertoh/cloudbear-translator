@@ -5,6 +5,7 @@ module.exports = {
   async execute(interaction) {
     if (!interaction.isChatInputCommand()) return;
 
+    console.log("An Interaction was made on:", new Date().toLocaleString());
     const command = interaction.client.commands.get(interaction.commandName);
 
     if (!command) {

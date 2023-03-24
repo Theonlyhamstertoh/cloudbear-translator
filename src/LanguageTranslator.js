@@ -12,10 +12,10 @@ const translator = new Translate({
  */
 // const text = 'The text to translate, e.g. Hello, world!';
 // const target = 'The target language, e.g. ru';
-// async function listLanguages() {
-//   const [languages] = await translate.getLanguages();
-//   return languages;
-// }
+async function getLanguage() {
+  const [languages] = await translate.getLanguages(code);
+  return languages;
+}
 
 async function translateText(text, lang) {
   let [translations] = await translator.translate(text, lang);
@@ -37,4 +37,4 @@ async function translateText(text, lang) {
   // });
 }
 
-module.exports = { translateText };
+module.exports = { translateText, getLanguage };

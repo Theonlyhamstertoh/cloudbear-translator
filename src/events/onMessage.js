@@ -8,9 +8,17 @@ module.exports = {
     // if (!interaction.()) return;
     try {
       if (!interaction.author.id) return console.log("DOES NOT EXIST");
+      if (interaction.content === ERROR_MESSAGE) return;
+      // console.log(
+      //   "interaction create ->",
+      //   interaction.channelId,
+      //   interaction.author.id,
+      //   interaction.bot.id
+      // );
+
       userData = UserDatabase.get(interaction.author.id);
       if (userData && userData.enable) {
-        console.log(interaction);
+        // console.log(interaction);
         return await interaction.reply({
           content: `${await translateText(interaction.content, userData.lang)}`,
           ephemeral: true,
@@ -41,3 +49,6 @@ module.exports = {
     // }
   },
 };
+
+const ERROR_MESSAGE =
+  "There was an error with Cloudbear. type /help to get the invite link to the discord community";

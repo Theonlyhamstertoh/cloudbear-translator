@@ -16,7 +16,7 @@ for (const file of commandFiles) {
 }
 
 // Construct and prepare an instance of the REST module
-const rest = new REST({ version: "10" }).setToken(process.env.token);
+const rest = new REST({ version: "10" }).setToken(process.env.PRODUCTION_TOKEN);
 // const rest = new REST({ version: "10" }).setToken(process.env.token);
 
 // and deploy your commands!
@@ -30,7 +30,7 @@ const rest = new REST({ version: "10" }).setToken(process.env.token);
     // });
 
     // Global deploy
-    const data = await rest.put(Routes.applicationCommands(process.env.clientId), {
+    const data = await rest.put(Routes.applicationCommands(process.env.CLIENT_ID), {
       body: commands,
     });
     console.log(`Successfully reloaded ${data.length} application (/) commands.`);

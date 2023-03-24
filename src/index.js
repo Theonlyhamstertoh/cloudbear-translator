@@ -5,6 +5,7 @@ require("dotenv").config();
 
 // require("./deploy-command");
 const { Client, Collection, Events, GatewayIntentBits, Guild } = require("discord.js");
+const { Partials } = require("discord.js");
 
 // Create a new client instance
 const client = new Client({
@@ -12,7 +13,10 @@ const client = new Client({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.DirectMessages,
+    GatewayIntentBits.GuildMessageReactions,
   ],
+  partials: [Partials.Message, Partials.Channel, Partials.Reaction],
 });
 client.commands = new Collection();
 
@@ -46,5 +50,10 @@ for (const file of eventsFile) {
   }
 }
 
+// client.user.setActivity(`on ${client.guilds.cache.size} Servers.`, {
+//   type: "PLAYING",
+// });
+
 // Log in to Discord with your client's token
+
 client.login(process.env.token);
