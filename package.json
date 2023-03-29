@@ -6,13 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/server.js",
-    "discord": "nodemon ./src/index.js"
+    "discord": "nodemon ./src/index.js",
+    "command": "node ./src/deploy-command.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@google-cloud/translate": "^7.2.0",
+    "@ladjs/country-language": "^1.0.3",
     "discord.js": "^14.8.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",

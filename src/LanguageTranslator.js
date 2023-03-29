@@ -17,9 +17,10 @@ async function getLanguage() {
   return languages;
 }
 
+translateText("test", "ru");
 async function translateText(text, lang) {
-  let [translations] = await translator.translate(text, lang);
-  return translations;
+  let [translation] = await translator.translate(text, lang);
+  return [translation];
   // if (translations.code === 400) {
   // console.log(translator.translate());
   // }
@@ -35,6 +36,12 @@ async function translateText(text, lang) {
   //   console.log(`${text[i]} => (${lang}) ${translation}`);
   //   return translation
   // });
+}
+
+async function translateMultipleTranscibers(transcribers, content) {
+  for (let transciber of transcribers) {
+    await translateText(content);
+  }
 }
 
 module.exports = { translateText, getLanguage };

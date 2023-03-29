@@ -16,7 +16,9 @@ for (const file of commandFiles) {
 }
 
 // Construct and prepare an instance of the REST module
-const rest = new REST({ version: "10" }).setToken(process.env.PRODUCTION_TOKEN);
+const rest = new REST({ version: "10" }).setToken(
+  process.env.mode === "dev" ? process.env.token : process.env.PRODUCTION_TOKEN
+);
 // const rest = new REST({ version: "10" }).setToken(process.env.token);
 
 // and deploy your commands!
@@ -25,15 +27,24 @@ const rest = new REST({ version: "10" }).setToken(process.env.PRODUCTION_TOKEN);
     console.log(`Started refreshing ${commands.length} application (/) commands.`);
 
     // The put method is used to fully refresh all commands in the DEV guild with the current set
-    // const data = await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
-    //   body: commands,
-    // });
 
-    // Global deploy
-    const data = await rest.put(Routes.applicationCommands(process.env.CLIENT_ID), {
-      body: commands,
-    });
-    console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+    if (process.env.mode === "dev") {
+      const data = await rest.put(
+        Routes.applicationGuildCommands(process.env.clientId, process.env.guildId),
+        {
+          body: commands,
+        }
+      );
+      console.log("not called");
+      console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+    } else {
+      // Global deploy
+      const data = await rest.put(Routes.applicationCommands(process.env.CLIENT_ID), {
+        body: commands,
+      });
+      console.log("PRODUCTION ---");
+      console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+    }
   } catch (error) {
     // And of course, make sure you catch and log any errors!
     console.error(error);

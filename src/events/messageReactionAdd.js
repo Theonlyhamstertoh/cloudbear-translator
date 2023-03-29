@@ -10,6 +10,9 @@ const {
 const { translateText } = require("../LanguageTranslator");
 const { supportedLanguages } = require("../supportedLanguages");
 
+const CountryLanguage = require("@ladjs/country-language");
+
+// const isoToCountryName = new Intl.DisplayNames(["en"], { type: "region" });
 module.exports = {
   name: Events.MessageReactionAdd,
   async execute(messageReaction, user) {
@@ -22,44 +25,55 @@ module.exports = {
     const emojiName = (await messageReaction._emoji.name) ?? null;
     if (!emojiName) return console.log("No emoji name found");
     if (checkIfFlagEmoji(emojiName) === false) return console.log("NOT A FLAG EMOJI");
+
     // Get textchannel to send message
-    const textChannel = await message.client.channels.fetch(message.channelId);
+    // const textChannel = await message.client.channels.fetch(message.channelId);
 
-    // Get Language
-    const flagLanguage = unicodeToString(emojiName);
+    const countryCode = unicodeToString(emojiName);
+    // const targetLanguage = countryToLanguage(countryCode.toLowerCase());
 
+    const languageCode = CountryLanguage.getCountry(countryCode).languages[0].iso639_1;
+
+    // Check if language is supported
     const targetLanguage = await supportedLanguages.find((language) => {
-      console.log(
-        flagLanguage,
-        language.value,
-        flagLanguage.length,
-        flagLanguage === language.value
-      );
-
-      //  ISSUE: THE UNICODE DON"T MATCH GOOGLE LANGUAGE ABBREVIATION
-      return language.value === flagLanguage;
+      return language.value === languageCode;
     });
 
-    if (!targetLanguage) {
-      return await textChannel.send(
-        codeBlock("Invalid Language Option. /languages for a list of available languages")
+    console.log("------------", targetLanguage);
+    if (targetLanguage === null || !targetLanguage) {
+      return await message.reply(
+        codeBlock(
+          "Language not available to be translated. /languages for a list of available languages"
+        )
       );
     }
 
-    console.log("TARGET LANGUAGE VALUE: ", targetLanguage.value);
-    return await textChannel.send(
-      `Translating to ${targetLanguage.name} ${message.author.username}: ${await inlineCode(
-        await translateText(message.content, targetLanguage.value)
-      )}`
+    return await message.reply(
+      `${inlineCode(countryCode)} ${await translateText(message.content, targetLanguage.value)}`
     );
-
-    // return await messageReaction.reply("i'm here");
-    // return await messageReaction.reply({
-    // content: `${await translateText(message.content, language_code)}`,
-    // ephemeral: true,
-    // });
   },
 };
+
+function countryToLanguage(code) {
+  const language = supportedLanguages.find((lang) => {
+    if (lang.country.length === 1) {
+      if (lang.country[0] === code) {
+        console.log(lang);
+        return lang;
+      }
+    } else if (lang.country.length > 0) {
+      return lang.country.find((l) => {
+        if (l === code) {
+          console.log(l === "cm", code, l, lang);
+          return lang;
+        }
+      });
+    }
+  });
+  console.log(language, "lang");
+
+  return language ? language : null;
+}
 
 /*
 

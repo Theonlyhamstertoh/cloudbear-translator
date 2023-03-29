@@ -1,13 +1,20 @@
-const { SlashCommandBuilder, codeBlock, Message } = require("discord.js");
+const { SlashCommandBuilder, codeBlock, Message, ChannelType } = require("discord.js");
 const { translateText } = require("../LanguageTranslator");
 const { supportedLanguages, limit_25_languages } = require("../supportedLanguages.js");
-const { UserDatabase, TranscribeManager } = require("../database");
+const { UserDatabase, User } = require("../database");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("transcribe")
     .setDescription("Select an user that you would like to be auto-translated")
     .addUserOption((option) =>
       option.setName("user").setRequired(true).setDescription("User you want translation for")
+    )
+    .addChannelOption((option) =>
+      option
+        .setName("channel")
+        .setRequired(true)
+        .setDescription("Channel/s you like translation for")
+        .addChannelTypes(ChannelType.GuildText)
     )
     .addStringOption((option) =>
       option
@@ -22,11 +29,13 @@ module.exports = {
         .setRequired(true)
         .setDescription("Enable transcription for this user")
     ),
+
   async execute(interaction) {
     try {
       const user = interaction.options.getUser("user", true) ?? null;
       const lang = interaction.options.getString("lang", true) ?? null;
       const mode = interaction.options.getBoolean("enable", true) ?? null;
+      const channel = interaction.options.getChannel("channel", true) ?? null;
 
       if (user.bot === true) {
         return await interaction.reply("Cannot Select A Bot To Transcribe");
@@ -36,12 +45,25 @@ module.exports = {
       );
       if (!targetLanguage) throw Error("Invalid Language Option");
 
+      console.log("runs");
       if (UserDatabase.get(user.id)) {
-        UserDatabase.get(user.id).enable = mode;
-        UserDatabase.get(user.id).lang = lang;
-        console.log(lang);
+        const selected_user = UserDatabase.get(user.id);
+        const transcriber = selected_user.getTranscriber(user.id);
+        transcriber.mode = mode;
+        transcriber.language = targetLanguage.name;
+        transcriber.lang_code = targetLanguage.value;
+        transcriber.channels.add(channel.id);
+        console.log(transcriber);
       } else {
-        UserDatabase.set(user.id, new TranscribeManager(mode, lang));
+        const selected_user = new User(user.id);
+        UserDatabase.set(user.id, selected_user);
+        selected_user.addTranscriber(
+          interaction.user.id,
+          targetLanguage.name,
+          targetLanguage.value,
+          true
+        );
+        selected_user.addChannelToTranscriber(interaction.user.id, channel.id);
       }
 
       return await interaction.reply({

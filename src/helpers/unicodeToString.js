@@ -33,9 +33,10 @@ function unicodeToString(unicode_string) {
 
     letters += unicodeToAlphabet(codePoint);
   }
-  return letters.toLowerCase();
+  return letters;
 }
 
+console.log(new Intl.DisplayNames(["en"], { type: "region" }).of("JP"));
 module.exports = {
   unicodeToString,
   checkIfCharIsRegionalAlphabet,
